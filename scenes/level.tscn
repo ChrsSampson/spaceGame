@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlp8l2xn2vld5"]
+
+[ext_resource type="PackedScene" uid="uid://bepakscdhqydc" path="res://entity/ship.tscn" id="1_2q6dc"]
+[ext_resource type="PackedScene" uid="uid://bxfevggvxo634" path="res://assets/background/space_background.tscn" id="2_w7c3h"]
+
+[node name="Level" type="Node2D"]
+
+[node name="Ship" parent="." instance=ExtResource("1_2q6dc")]
+position = Vector2(681, 393)
+
+[node name="SpaceBackground" parent="." instance=ExtResource("2_w7c3h")]
