@@ -12,7 +12,7 @@ config_version=5
 
 config/name="M04. To Space and Beyond (Workbook)"
 config/tags=PackedStringArray("workbook")
-run/main_scene="uid://dlp8l2xn2vld5"
+run/main_scene="uid://bsprqhkvrf58v"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/ship.png"
 

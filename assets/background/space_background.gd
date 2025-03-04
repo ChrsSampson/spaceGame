@@ -10,4 +10,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	material.set_shader_parameter("view_offset", _camera.global_position * 2.0)
+	if _camera:
+		material.set_shader_parameter("view_offset", _camera.global_position * 2.0)
+	else:
+		_camera = get_viewport().get_camera_2d()

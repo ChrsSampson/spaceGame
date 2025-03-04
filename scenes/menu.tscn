@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsprqhkvrf58v"]
+
+[ext_resource type="Script" uid="uid://f2c33p0t66xs" path="res://scripts/menu.gd" id="1_vjb58"]
+[ext_resource type="PackedScene" uid="uid://bxfevggvxo634" path="res://assets/background/space_background.tscn" id="2_con2f"]
+
+[node name="Menu" type="Node"]
+script = ExtResource("1_vjb58")
+
+[node name="SpaceBackground" parent="." instance=ExtResource("2_con2f")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 815.0
+offset_top = 498.0
+offset_right = 855.0
+offset_bottom = 538.0
+scale = Vector2(4.48, 4.48)
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 6.02679
+offset_top = 9.82143
+offset_right = 52.0268
+offset_bottom = 40.8214
+scale = Vector2(0.628597, 0.628597)
+text = "Start"
+
+[connection signal="pressed" from="Control/Panel/Button" to="." method="_on_button_pressed"]
