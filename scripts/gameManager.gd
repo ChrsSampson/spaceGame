@@ -6,7 +6,7 @@ var rock1_scene = preload("res://entity/rock1.tscn")
 @onready var enemyContainer = $Enemies
 
 var spawn_interval: int = 10
-var entities_spawned:int = 1
+var entities_spawned:int = 3
 
 func _ready() -> void:
 	rockSpawnTimer.start(1)
@@ -21,8 +21,7 @@ func spawn_rock():
 
 
 func _on_rock_spawner_timeout() -> void:
-	var i = 0
-	while i < entities_spawned:
+	for m in entities_spawned:
 		spawn_rock()
 	entities_spawned += 1
 	rockSpawnTimer.start(spawn_interval)

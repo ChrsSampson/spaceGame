@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dj5q0qbkygiqj" path="res://scripts/rock.gd" id="1_fs4x8"]
 [ext_resource type="Texture2D" uid="uid://b0qto4rlxop8t" path="res://assets/Rock1.png" id="2_1nbbt"]
 
-[node name="Rock" type="Area2D" groups=["rock"]]
+[node name="Rock" type="Area2D"]
 script = ExtResource("1_fs4x8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

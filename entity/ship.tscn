@@ -1,20 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bepakscdhqydc"]
+[gd_scene load_steps=5 format=3 uid="uid://bepakscdhqydc"]
 
 [ext_resource type="Script" uid="uid://dygi3svqd6pro" path="res://scripts/ship.gd" id="1_cvfwu"]
 [ext_resource type="Texture2D" uid="uid://bniyrxn3r2v8h" path="res://assets/ship.png" id="1_fnwwl"]
 [ext_resource type="PackedScene" uid="uid://dgf54k70yiiff" path="res://assets/ship/main_thruster/main_thruster.tscn" id="3_l53a2"]
 [ext_resource type="PackedScene" uid="uid://bklom8bhpxg4h" path="res://assets/ship/side_thruster/side_thruster.tscn" id="4_gt1mf"]
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_l53a2"]
-points = PackedVector2Array(-1.70474e-06, -39, 21, -15, 44, 10, 26, 37, -27, 36, -45, 12, -22, -15)
-
 [node name="Ship" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_cvfwu")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." groups=["player"]]
 rotation = 1.5708
-shape = SubResource("ConvexPolygonShape2D_l53a2")
+polygon = PackedVector2Array(32, -1.00012, 5.99986, -39, -5.00014, -40, -23.0001, -15.9999, -34, 0.00012308, -45, 4.00016, -41.9999, 23.0002, -29.9999, 24.0001, -29.9999, 37.0001, 30.0001, 36.9999, 30.0001, 23.9999, 42.0001, 23.9998, 46, 5.99983)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_fnwwl")

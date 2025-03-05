@@ -82,3 +82,9 @@ func fire() -> void:
 
 func _on_fire_timer_timeout() -> void:
 	can_shoot= true
+
+
+#--------------Death/Gameover--------------
+func die() -> void:
+	queue_free()
+	get_tree().change_scene_to_file("res://scenes/menu.tscn")
