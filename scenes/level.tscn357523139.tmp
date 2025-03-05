@@ -5,12 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://bxfevggvxo634" path="res://assets/background/space_background.tscn" id="2_w7c3h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8frs"]
+size = Vector2(20, 28.3156)
 
 [node name="Level" type="Node"]
 script = ExtResource("1_w8frs")
 
 [node name="Ship" parent="." instance=ExtResource("1_2q6dc")]
-position = Vector2(928, 539)
+position = Vector2(987, 539)
 
 [node name="SpaceBackground" parent="." instance=ExtResource("2_w7c3h")]
 
@@ -19,12 +20,11 @@ position = Vector2(928, 539)
 [node name="Enemies" type="Node" parent="."]
 
 [node name="SpawnArea" type="Area2D" parent="."]
-position = Vector2(947, 548)
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnArea"]
-position = Vector2(-12.9999, -2.99997)
-scale = Vector2(300, -249.905)
+position = Vector2(956, 549)
+scale = Vector2(245.653, 118.86)
 shape = SubResource("RectangleShape2D_w8frs")
 
 [connection signal="timeout" from="RockSpawner" to="." method="_on_rock_spawner_timeout"]
-[connection signal="body_exited" from="SpawnArea" to="." method="_on_spawn_area_body_exited"]

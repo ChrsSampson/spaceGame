@@ -23,8 +23,7 @@ position = Vector2(947, 548)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnArea"]
 position = Vector2(-12.9999, -2.99997)
-scale = Vector2(300, -249.905)
+scale = Vector2(235.012, -195.769)
 shape = SubResource("RectangleShape2D_w8frs")
 
 [connection signal="timeout" from="RockSpawner" to="." method="_on_rock_spawner_timeout"]
-[connection signal="body_exited" from="SpawnArea" to="." method="_on_spawn_area_body_exited"]
