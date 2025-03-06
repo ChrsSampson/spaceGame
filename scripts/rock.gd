@@ -9,6 +9,8 @@ var spawn_area:Area2D
 @onready var sprite = $Sprite2D
 @onready var collider = $Collider
 
+var player_position:Vector2 = Vector2.ZERO
+
 # default behaivor
 	# random speed
 	# travels at a random point around the player
@@ -16,13 +18,19 @@ var spawn_area:Area2D
 	# breaks apart when shot
 
 func _ready() -> void:
+#	randomize seed for generators
 	randomize()
-	var player = get_tree().get_first_node_in_group("player").global_position
-	position = Vector2(0,0)
-	#set_random_speed()
-	#set_random_rotation()
-	#set_random_location()
-	#set_random_target(player)
+	
+#	figure out what we are aiming at
+	var player = get_tree().get_first_node_in_group("player")
+	if player_position == Vector2.ZERO:
+		player_position = player.global_position
+	
+#	Generate random stats
+	set_random_speed()
+	set_random_rotation()
+	set_random_location()
+	set_random_target(player_position)
 	pass
 
 
@@ -34,26 +42,21 @@ func _process(delta: float) -> void:
 	sprite.rotation += rotation_rate * delta
 	collider.rotation += rotation_rate * delta
 
-
-
 #-------------------------random state generators--------------------------
 
 #sets speed to random int
 func set_random_speed() -> void:
-	speed = randf_range(0,5)
+	speed = randf_range(0,3)
 
 #applies varience to the direction based around the players current location
 func set_random_target(base:Vector2) -> void:
 	direction = global_transform.basis_xform(base)
 	
 func set_random_location() -> void:
-	var box = spawn_area.get_node("CollisionShape2D")
 	var view = get_viewport().get_visible_rect().size
-	var outside = box.shape.get_rect().size
-	var rx = randi_range(view.x, outside.x)
-	var ry =  randi_range(view.y, outside.y)
+	var rx = randi_range(view.x, view.x + 500)
+	var ry = randi_range(view.y, view.y + 500)
 	global_position = Vector2(rx,ry)
-	pass
 
 func set_random_rotation() -> void:
 	rotation_rate = randf_range(0.25,2)
@@ -70,6 +73,8 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 #------------------Collision Behavior--------------------
 func _on_body_entered(body: Node2D) -> void:
 #	kill player
+	print(body)
+
 	if body.is_in_group("player"):
 		if body.has_method("die"):
 			body.take_damage(1)
@@ -89,6 +94,5 @@ func _on_body_entered(body: Node2D) -> void:
 
 #--------------getters and setters--------------
 
-func set_spawn_area(area:Area2D) -> void:
-	spawn_area = area
-	pass
+func set_player_position(p:Vector2) -> void:
+	player_position = p

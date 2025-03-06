@@ -5,26 +5,35 @@ var healthPack_scene = preload("res://entity/healthPack.tscn")
 
 @onready var rockSpawnTimer = $RockSpawner
 @onready var enemyContainer = $Enemies
-@onready var spawn_area:Area2D = $SpawnArea
 @onready var health_spawn_timer = $HealthSpawnTimer
 @onready var health_pack_container = $HealthPacks
 @onready var player = $Ship
 
+#spawn intervals and stats
 var spawn_interval: int = 10
 var entities_spawned:int = 1
 var health_spawn_interval:int = 10
 var health_spawned:int = 1
 
+var is_paused: bool = false
+
 func _ready() -> void:
-	player.set_play_area(spawn_area)
 	rockSpawnTimer.start(1)
 	handle_health_spawns()
 	pass
-	
+
+func _input(event) -> void:
+	if event.is_action_pressed("pause"):
+		if is_paused:
+			is_paused = false
+			get_tree().paused = false
+		else:
+			is_paused = true
+			get_tree().paused = true
+
 func spawn_rock():
-	print("spawned rock")
 	var rock = rock1_scene.instantiate()
-	rock.set_spawn_area(spawn_area)
+	rock.set_player_position(player.global_position)
 	enemyContainer.add_child(rock)
 	pass
 	
@@ -52,3 +61,5 @@ func _on_health_spawn_timer_timeout() -> void:
 	new_pack.position = Vector2(randi_range(0,viewport.x), randi_range(0, viewport.y))
 	health_pack_container.add_child(new_pack)
 	handle_health_spawns()
+
+#------------------------- Game state and Menus------------------

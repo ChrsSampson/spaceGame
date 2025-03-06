@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 var bullet_scene = preload("res://entity/bullet.tscn")
 
+#----player stats----
 var health:int = 5
 var speed:float = 600
 var boost_speed: float = 1500
@@ -16,8 +17,7 @@ var can_boost:bool = true
 var booster_cooldown:float = 5
 var fire_rate:float = 3
 var can_shoot:bool = true
-var play_area:Area2D
-var play_area_size:Vector2 = Vector2.ZERO
+
 
 @onready var bullet_spawn_location = $BulletSpawn.global_position
 @onready var health_bar = $UI/HealthBar
@@ -25,7 +25,6 @@ var play_area_size:Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	health_bar.value = health
-	print(play_area)
 	#var box = play_area.get_node("CollisionShape2D")
 	#play_area_size = box.shape.get_rect().size
 	pass
@@ -123,5 +122,12 @@ func heal(h:int):
 		health += h
 	update_health()
 
-func set_play_area(area:Area2D):
-	play_area = area
+#determine if point is too close to player
+func is_in_black_zone(query_point:Vector2) -> bool:
+	var origin = self.global_position
+	var border = Vector2(origin.x + 900, origin.y + 900)
+	
+	var distance = ((border.x - origin.x) ** 2 + (border.y - origin.y) ** 2) ** 0.5
+	
+	print(distance)
+	return false
