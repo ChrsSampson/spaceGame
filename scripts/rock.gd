@@ -19,10 +19,10 @@ func _ready() -> void:
 	randomize()
 	var player = get_tree().get_first_node_in_group("player").global_position
 	position = Vector2(0,0)
-	set_random_speed()
-	set_random_rotation()
-	set_random_location()
-	set_random_target(player)
+	#set_random_speed()
+	#set_random_rotation()
+	#set_random_location()
+	#set_random_target(player)
 	pass
 
 
@@ -48,9 +48,8 @@ func set_random_target(base:Vector2) -> void:
 	
 func set_random_location() -> void:
 	var box = spawn_area.get_node("CollisionShape2D")
-	var view = get_viewport().size #get area of view
+	var view = get_viewport().get_visible_rect().size
 	var outside = box.shape.get_rect().size
-	print(outside)
 	var rx = randi_range(view.x, outside.x)
 	var ry =  randi_range(view.y, outside.y)
 	global_position = Vector2(rx,ry)
@@ -60,7 +59,7 @@ func set_random_rotation() -> void:
 	rotation_rate = randf_range(0.25,2)
 
 func set_random_scale() -> void:
-	var s = randi_range(1,4)
+	var s = randf_range(0.5,2.5)
 	scale = Vector2(s,s)
 
 #--------------------------kill off screen-----------------------
@@ -73,14 +72,15 @@ func _on_body_entered(body: Node2D) -> void:
 #	kill player
 	if body.is_in_group("player"):
 		if body.has_method("die"):
-			body.die()
+			body.take_damage(1)
 	
-	if body.is_in_group("bullet"):
+	elif body.is_in_group("bullet"):
+		print('bullet hit')
 		queue_free();
 		
 #	rocks bounce off each other
 #	invert direction
-	if body.is_in_group("rock"):
+	elif body.is_in_group("rock"):
 		if direction.x > direction.y:
 			direction.x *= -1
 		else:

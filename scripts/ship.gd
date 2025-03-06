@@ -1,7 +1,13 @@
 extends CharacterBody2D
 
+#The UI should really be off in its own instance and then attached to the player in the level
+# doing it this way requires the ui to be transformed on every frame to face the right way
+
+#also the player should have an area around it that rocks cannot spawn in 
+
 var bullet_scene = preload("res://entity/bullet.tscn")
 
+var health:int = 5
 var speed:float = 600
 var boost_speed: float = 1500
 var turn_speed:float = 10
@@ -10,9 +16,18 @@ var can_boost:bool = true
 var booster_cooldown:float = 5
 var fire_rate:float = 3
 var can_shoot:bool = true
+var play_area:Area2D
+var play_area_size:Vector2 = Vector2.ZERO
+
 @onready var bullet_spawn_location = $BulletSpawn.global_position
+@onready var health_bar = $UI/HealthBar
+@onready var ui = $UI
 
 func _ready() -> void:
+	health_bar.value = health
+	print(play_area)
+	#var box = play_area.get_node("CollisionShape2D")
+	#play_area_size = box.shape.get_rect().size
 	pass
 
 func _process(delta: float) -> void:
@@ -37,6 +52,10 @@ func _process(delta: float) -> void:
 
 	if direction.length() > 0.0:
 		rotation = velocity.angle()
+		ui.rotation = velocity.angle() * -1
+	
+	#position.x = wrapf(position.x, 0, play_area_size.x)
+	#position.x = wrapf(position.y, 0, play_area_size.y)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -83,8 +102,26 @@ func fire() -> void:
 func _on_fire_timer_timeout() -> void:
 	can_shoot= true
 
+#--------------------------------UI Logic------------------
+func update_health() -> void:
+	health_bar.value = health
 
 #--------------Death/Gameover--------------
 func die() -> void:
 	queue_free()
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
+	
+#----------------Getters and Setters----------------
+func take_damage(d:int):
+	health -= d
+	if(health == 0):
+		die()
+	update_health()
+
+func heal(h:int):
+	if health < 5:
+		health += h
+	update_health()
+
+func set_play_area(area:Area2D):
+	play_area = area

@@ -26,5 +26,10 @@ position = Vector2(-12.9999, -2.99997)
 scale = Vector2(300, -249.905)
 shape = SubResource("RectangleShape2D_w8frs")
 
+[node name="HealthSpawnTimer" type="Timer" parent="."]
+
+[node name="HealthPacks" type="Node" parent="."]
+
 [connection signal="timeout" from="RockSpawner" to="." method="_on_rock_spawner_timeout"]
 [connection signal="body_exited" from="SpawnArea" to="." method="_on_spawn_area_body_exited"]
+[connection signal="timeout" from="HealthSpawnTimer" to="." method="_on_health_spawn_timer_timeout"]
