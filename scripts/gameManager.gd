@@ -21,15 +21,15 @@ func _ready() -> void:
 	rockSpawnTimer.start(1)
 	handle_health_spawns()
 	pass
-
-func _input(event) -> void:
-	if event.is_action_pressed("pause"):
-		if is_paused:
-			is_paused = false
-			get_tree().paused = false
-		else:
-			is_paused = true
-			get_tree().paused = true
+#borked pause function 
+#func _input(event) -> void:
+	#if event.is_action_pressed("pause"):
+		#if is_paused:
+			#is_paused = false
+			#get_tree().paused = false
+		#else:
+			#is_paused = true
+			#get_tree().paused = true
 
 func spawn_rock():
 	var rock = rock1_scene.instantiate()

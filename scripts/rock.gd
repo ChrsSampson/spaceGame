@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed:float = 2
+@export var speed:float = 1
 @export var health:int = 1
 var direction = Vector2.ZERO
 var target_varience = 1000
@@ -31,6 +31,8 @@ func _ready() -> void:
 	set_random_rotation()
 	set_random_location()
 	set_random_target(player_position)
+	
+	print("rock at - ", self.global_position, "traveling at - " , speed)
 	pass
 
 
@@ -46,12 +48,17 @@ func _process(delta: float) -> void:
 
 #sets speed to random int
 func set_random_speed() -> void:
-	speed = randf_range(0,3)
+	speed = randf_range(-2.4, 2.4)
 
 #applies varience to the direction based around the players current location
 func set_random_target(base:Vector2) -> void:
-	direction = global_transform.basis_xform(base)
+	var v = randf_range(-100, 100)
 	
+	var b = Vector2(base.x + v, base.y + v)
+	
+	direction = global_transform.basis_xform(b)
+
+# get a random point out of view to spawn 
 func set_random_location() -> void:
 	var view = get_viewport().get_visible_rect().size
 	var rx = randi_range(view.x, view.x + 500)
