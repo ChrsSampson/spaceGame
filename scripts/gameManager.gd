@@ -8,32 +8,37 @@ var healthPack_scene = preload("res://entity/healthPack.tscn")
 @onready var health_spawn_timer = $HealthSpawnTimer
 @onready var health_pack_container = $HealthPacks
 @onready var player = $Ship
+@onready var view:Vector2 = Vector2(1920, 1080)
 
 #spawn intervals and stats
 var spawn_interval: int = 10
-var entities_spawned:int = 1
+var junk_spawned:int = 1
+var enemies_spawned:int = 0
+var coin_spawned:int = 0
+
 var health_spawn_interval:int = 10
 var health_spawned:int = 1
-
 var is_paused: bool = false
 
 func _ready() -> void:
 	rockSpawnTimer.start(1)
 	handle_health_spawns()
 	pass
-#borked pause function 
-#func _input(event) -> void:
-	#if event.is_action_pressed("pause"):
-		#if is_paused:
-			#is_paused = false
-			#get_tree().paused = false
-		#else:
-			#is_paused = true
-			#get_tree().paused = true
+
+#----------------------Spawners and Location Generators----------------------------
+
+#this works pretty ok
+func get_random_point_offscreen() -> Vector2:
+	var origin  = player.global_position
+	var rx = (view.x + origin.x) * randi_range(-1, 1)
+	var ry = (view.y + origin.y) * randi_range(-1, 1)
+	var p = Vector2(rx, ry)
+	return p
 
 func spawn_rock():
 	var rock = rock1_scene.instantiate()
 	rock.set_player_position(player.global_position)
+	rock.position = get_random_point_offscreen()
 	enemyContainer.add_child(rock)
 	pass
 	
@@ -45,9 +50,9 @@ func handle_health_spawns():
 	health_spawned = randi_range(1,5)
 
 func _on_rock_spawner_timeout() -> void:
-	for m in entities_spawned:
+	for m in junk_spawned:
 		spawn_rock()
-	entities_spawned += 1
+	junk_spawned += 1
 	rockSpawnTimer.start(spawn_interval)
 
 #kill anything out of bounds
@@ -58,8 +63,8 @@ func _on_spawn_area_body_exited(body: Node2D) -> void:
 func _on_health_spawn_timer_timeout() -> void:
 	var new_pack = healthPack_scene.instantiate()
 	var viewport = get_viewport().get_visible_rect().size
-	new_pack.position = Vector2(randi_range(0,viewport.x), randi_range(0, viewport.y))
+	new_pack.position = get_random_point_offscreen()
 	health_pack_container.add_child(new_pack)
 	handle_health_spawns()
 
-#------------------------- Game state and Menus------------------
+#------------------------- UI Updates------------------

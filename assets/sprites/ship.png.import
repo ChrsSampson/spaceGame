@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj4i127lhrfn4"
-path="res://.godot/imported/HealthIcon.png-73face95f59b98f09073c0e6071dd330.ctex"
+uid="uid://bniyrxn3r2v8h"
+path="res://.godot/imported/ship.png-56ce329a24be284c0bec16b15a37bb2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HealthIcon.png"
-dest_files=["res://.godot/imported/HealthIcon.png-73face95f59b98f09073c0e6071dd330.ctex"]
+source_file="res://assets/sprites/ship.png"
+dest_files=["res://.godot/imported/ship.png-56ce329a24be284c0bec16b15a37bb2b.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

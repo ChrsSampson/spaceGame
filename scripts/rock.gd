@@ -29,7 +29,6 @@ func _ready() -> void:
 #	Generate random stats
 	set_random_speed()
 	set_random_rotation()
-	set_random_location()
 	set_random_target(player_position)
 	
 	print("rock at - ", self.global_position, "traveling at - " , speed)
@@ -37,6 +36,15 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	#var velocity = direction  * speed
+	#position += velocity * delta
+#
+##	spin sprite and collision as one
+	#sprite.rotation += rotation_rate * delta
+	#collider.rotation += rotation_rate * delta
+	pass
+
+func _physics_process(delta: float) -> void:
 	var velocity = direction  * speed
 	position += velocity * delta
 
@@ -52,24 +60,24 @@ func set_random_speed() -> void:
 
 #applies varience to the direction based around the players current location
 func set_random_target(base:Vector2) -> void:
-	var v = randf_range(-100, 100)
+	var v = randf_range(-1000, 1000)
 	
 	var b = Vector2(base.x + v, base.y + v)
 	
 	direction = global_transform.basis_xform(b)
 
 # get a random point out of view to spawn 
-func set_random_location() -> void:
-	var view = get_viewport().get_visible_rect().size
-	var rx = randi_range(view.x, view.x + 500)
-	var ry = randi_range(view.y, view.y + 500)
-	global_position = Vector2(rx,ry)
+#func set_random_location() -> void:
+	#var view = get_viewport().get_visible_rect().size
+	#var rx = randi_range(view.x, view.x + 500)
+	#var ry = randi_range(view.y, view.y + 500)
+	#global_position = Vector2(rx,ry)
 
 func set_random_rotation() -> void:
 	rotation_rate = randf_range(0.25,2)
 
 func set_random_scale() -> void:
-	var s = randf_range(0.5,2.5)
+	var s = randf_range(0.5,2)
 	scale = Vector2(s,s)
 
 #--------------------------kill off screen-----------------------

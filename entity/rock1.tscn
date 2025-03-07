@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://r6rgaxck7p20"]
 
 [ext_resource type="Script" uid="uid://dj5q0qbkygiqj" path="res://scripts/rock.gd" id="1_fs4x8"]
-[ext_resource type="Texture2D" uid="uid://b0qto4rlxop8t" path="res://assets/Rock1.png" id="2_1nbbt"]
+[ext_resource type="Texture2D" uid="uid://b0qto4rlxop8t" path="res://assets/sprites/Rock1.png" id="2_1nbbt"]
 
 [node name="Rock" type="Area2D" groups=["rock"]]
 script = ExtResource("1_fs4x8")
@@ -9,7 +9,7 @@ script = ExtResource("1_fs4x8")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1nbbt")
 
-[node name="Collider" type="CollisionPolygon2D" parent="."]
+[node name="Collider" type="CollisionPolygon2D" parent="." groups=["rock"]]
 polygon = PackedVector2Array(191, 16, 226, -9, 248, -47, 248, -84, 228, -135, 180, -182, 124, -211, 49, -216, -27, -204, -134, -160, -141, -121, -162, -72, -189, -50, -225, -27, -239, 24, -244, 102, -226, 159, -153, 180, -103, 178, -55, 153, -21, 114, 13, 77, 54, 51, 96, 35, 137, 35)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

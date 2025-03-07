@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bepakscdhqydc"]
 
 [ext_resource type="Script" uid="uid://dygi3svqd6pro" path="res://scripts/ship.gd" id="1_cvfwu"]
-[ext_resource type="Texture2D" uid="uid://bniyrxn3r2v8h" path="res://assets/ship.png" id="1_fnwwl"]
+[ext_resource type="Texture2D" uid="uid://bniyrxn3r2v8h" path="res://assets/sprites/ship.png" id="1_fnwwl"]
 [ext_resource type="PackedScene" uid="uid://dgf54k70yiiff" path="res://assets/ship/main_thruster/main_thruster.tscn" id="3_l53a2"]
 [ext_resource type="PackedScene" uid="uid://bklom8bhpxg4h" path="res://assets/ship/side_thruster/side_thruster.tscn" id="4_gt1mf"]
 
@@ -31,11 +31,6 @@ one_shot = true
 
 [node name="BoostCooldown" type="Timer" parent="."]
 wait_time = 5.0
-
-[node name="Camera2D" type="Camera2D" parent="."]
-visible = false
-position_smoothing_enabled = true
-metadata/_edit_lock_ = true
 
 [node name="MainThruster" parent="." instance=ExtResource("3_l53a2")]
 position = Vector2(-32, 0)

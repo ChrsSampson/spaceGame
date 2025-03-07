@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://dmqodi5hesgcy"]
 
 [ext_resource type="Script" uid="uid://c6x25r4vd12fl" path="res://scripts/healthPack.gd" id="1_4spel"]
-[ext_resource type="Texture2D" uid="uid://dj4i127lhrfn4" path="res://assets/HealthIcon.png" id="1_knlsa"]
-[ext_resource type="Texture2D" uid="uid://b31xpryfdh6d7" path="res://assets/HealthSheet.png" id="2_4spel"]
+[ext_resource type="Texture2D" uid="uid://dj4i127lhrfn4" path="res://assets/sprites/HealthIcon.png" id="1_knlsa"]
+[ext_resource type="Texture2D" uid="uid://b31xpryfdh6d7" path="res://assets/sprites/HealthSheet.png" id="2_4spel"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cq3x7"]
 size = Vector2(64, 64)
