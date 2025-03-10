@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8twekcvq3rpb"]
+
+[ext_resource type="Script" uid="uid://bmrktgtk7l2ok" path="res://scripts/gameInterface.gd" id="1_l6dly"]
+
+[node name="GameInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6dly")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 14.0
+offset_top = 1016.0
+offset_right = 213.0
+offset_bottom = 1063.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 85.0
+offset_bottom = 35.0
+text = "Credits: 0"
