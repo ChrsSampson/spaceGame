@@ -2,6 +2,7 @@ extends Area2D
 
 @onready var display_name = $DisplayName
 @onready var body = $Sprite2D
+@onready var hint = $Hint
 
 var name_collection:Array = []
 var planet_name:String = "Arron"
@@ -56,17 +57,22 @@ func _on_safe_zone_area_entered(area: Area2D) -> void:
 func _on_safe_zone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_docked.emit(true, self)
+		hint.visible = true
 	pass # Replace with function body.
 
 
 func _on_safe_zone_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_docked.emit(false, null)
+		hint.visible = false
 	pass # Replace with function body.
 
 
 
 #---------------Getters and Setters-----------------
+
+func get_planet_name() -> String:
+	return self.planet_name
 
 func set_planet_name(name:String) -> void:
 	planet_name = name

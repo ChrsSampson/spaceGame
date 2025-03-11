@@ -35,6 +35,14 @@ vertical_alignment = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SafeZone"]
 shape = SubResource("CircleShape2D_1fx7q")
 
+[node name="Hint" type="Label" parent="."]
+visible = false
+offset_left = -85.0
+offset_top = -285.0
+offset_right = 85.0
+offset_bottom = -262.0
+text = "Press [Interact] to Dock"
+
 [connection signal="area_entered" from="SafeZone" to="." method="_on_safe_zone_area_entered"]
 [connection signal="body_entered" from="SafeZone" to="." method="_on_safe_zone_body_entered"]
 [connection signal="body_exited" from="SafeZone" to="." method="_on_safe_zone_body_exited"]

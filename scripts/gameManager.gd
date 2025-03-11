@@ -138,11 +138,17 @@ func set_can_enter_store(v:bool, planet: Area2D) -> void:
 func player_enter_store(planet:Area2D) -> void:
 	if can_enter_store:
 		if Input.is_action_pressed("interact"):
+			var credits = player.get_credits()
 			var store = planet_store_scene.instantiate()
-			store.planet = planet
+			store.set_planet(planet)
+			store.credits = credits
+			store.connect('close_ship', exit_store)
+			
 			overlay.add_child(store)
+			
 	pass
-	
+
+
 func exit_store() -> void:
 	var node = overlay.get_node("PlanetStore")
 	overlay.remove_child(node)
