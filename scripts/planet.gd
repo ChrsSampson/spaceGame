@@ -6,11 +6,12 @@ extends Area2D
 var name_collection:Array = []
 var planet_name:String = "Arron"
 
+signal player_docked(status:bool, planet:Area2D)
 
 func _ready() -> void:
 	randomize()
 	name_collection = read_json("res://data/planets.json")["planet_names"]
-	var rn = name_collection[get_random_index(len(name_collection))]
+	var rn = name_collection[get_random_index(len(name_collection) -1)]
 	set_planet_name(rn)
 	var rc = get_random_color()
 	set_planet_color(rc)
@@ -54,8 +55,15 @@ func _on_safe_zone_area_entered(area: Area2D) -> void:
 #allow player to enter store and disable weapons
 func _on_safe_zone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		print("hi player")
+		player_docked.emit(true, self)
 	pass # Replace with function body.
+
+
+func _on_safe_zone_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		player_docked.emit(false, null)
+	pass # Replace with function body.
+
 
 
 #---------------Getters and Setters-----------------

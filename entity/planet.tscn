@@ -37,3 +37,4 @@ shape = SubResource("CircleShape2D_1fx7q")
 
 [connection signal="area_entered" from="SafeZone" to="." method="_on_safe_zone_area_entered"]
 [connection signal="body_entered" from="SafeZone" to="." method="_on_safe_zone_body_entered"]
+[connection signal="body_exited" from="SafeZone" to="." method="_on_safe_zone_body_exited"]

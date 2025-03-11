@@ -48,7 +48,11 @@ texture = ExtResource("4_mx8sn")
 
 [node name="GameInterface" parent="." instance=ExtResource("5_ppgk2")]
 
-[node name="Planet" parent="." instance=ExtResource("6_2r41h")]
+[node name="Overlay" type="Node" parent="."]
+
+[node name="Planets" type="Node" parent="."]
+
+[node name="Planet" parent="Planets" instance=ExtResource("6_2r41h")]
 
 [connection signal="timeout" from="Timers/RockSpawner" to="." method="_on_rock_spawner_timeout"]
 [connection signal="timeout" from="Timers/HealthSpawnTimer" to="." method="_on_health_spawn_timer_timeout"]
