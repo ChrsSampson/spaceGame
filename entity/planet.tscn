@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://c25awcdifdlg0"]
+
+[ext_resource type="Script" uid="uid://i426as11m5ke" path="res://scripts/planet.gd" id="1_cktii"]
+[ext_resource type="Texture2D" uid="uid://bkueifls7csiy" path="res://assets/practice_assets/ellipse_white.png" id="2_1fx7q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wmcs"]
+radius = 143.003
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1fx7q"]
+radius = 687.088
+
+[node name="Planet" type="Area2D" groups=["planet"]]
+script = ExtResource("1_cktii")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0wmcs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(6.26667, 6.37778)
+texture = ExtResource("2_1fx7q")
+
+[node name="DisplayName" type="Label" parent="."]
+offset_left = -56.0
+offset_top = 151.0
+offset_right = 55.0
+offset_bottom = 174.0
+text = "[Planet_name]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SafeZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeZone"]
+shape = SubResource("CircleShape2D_1fx7q")
+
+[connection signal="area_entered" from="SafeZone" to="." method="_on_safe_zone_area_entered"]
+[connection signal="body_entered" from="SafeZone" to="." method="_on_safe_zone_body_entered"]

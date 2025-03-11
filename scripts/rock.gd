@@ -30,8 +30,7 @@ func _ready() -> void:
 	set_random_speed()
 	set_random_rotation()
 	set_random_target(player_position)
-	
-	print("rock at - ", self.global_position, "traveling at - " , speed)
+
 	pass
 
 
@@ -66,13 +65,6 @@ func set_random_target(base:Vector2) -> void:
 	
 	direction = global_transform.basis_xform(b)
 
-# get a random point out of view to spawn 
-#func set_random_location() -> void:
-	#var view = get_viewport().get_visible_rect().size
-	#var rx = randi_range(view.x, view.x + 500)
-	#var ry = randi_range(view.y, view.y + 500)
-	#global_position = Vector2(rx,ry)
-
 func set_random_rotation() -> void:
 	rotation_rate = randf_range(0.25,2)
 
@@ -100,12 +92,19 @@ func _on_body_entered(body: Node2D) -> void:
 		
 #	rocks bounce off each other
 #	invert direction
-	elif body.is_in_group("rock"):
+	
+	pass # Replace with function body.
+
+#-----------------Area Collision Detection------------------
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("bullet"):
+		queue_free()
+	
+	elif area.is_in_group("rock"):
 		if direction.x > direction.y:
 			direction.x *= -1
 		else:
 			direction.y *= -1
-	pass # Replace with function body.
 
 #--------------getters and setters--------------
 
