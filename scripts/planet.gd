@@ -4,20 +4,29 @@ extends Area2D
 @onready var body = $Sprite2D
 
 var name_collection:Array = []
-var planet_name:String = "Arron"
+var planet_name:String = ""
+var planet_color:Color
 
 signal player_docked(status:bool, planet:Area2D)
 
 func _ready() -> void:
 	randomize()
 	name_collection = read_json("res://data/planets.json")["planet_names"]
-	var rn = name_collection[get_random_index(len(name_collection) -1)]
-	set_planet_name(rn)
-	var rc = get_random_color()
-	set_planet_color(rc)
+	
+	init_planet()
+
 	pass
 
+func init_planet() -> void:
+		get_random_planet_name()
+		var rc = get_random_color()
+		set_planet_color(rc)
+
 #---------- Random Stat Generators -------------------
+
+func get_random_planet_name() -> void:
+	var rn = name_collection[get_random_index(len(name_collection) -1)]
+	set_planet_name(rn)
 
 func get_random_index(max:int = 10) -> int:
 	var r = randi_range(0, max)

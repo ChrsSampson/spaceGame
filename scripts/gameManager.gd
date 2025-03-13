@@ -1,11 +1,15 @@
 extends Node
 
+# This manages random spawns and collisions in space
+
 #Scenes
 var rock1_scene = preload("res://entity/rock1.tscn")
 var healthPack_scene = preload("res://entity/healthPack.tscn")
 var coin_scene = preload("res://entity/coin.tscn")
 var planet_store_scene = preload("res://scenes/planetStore.tscn")
 var planet_scene = preload("res://entity/planet.tscn")
+
+@onready var game_director = self.get_parent()
 
 #Selectors
 @onready var rockSpawnTimer = $Timers/RockSpawner
@@ -35,27 +39,53 @@ var coin_spawned:int = 0
 var health_spawn_interval:int = 10
 var health_spawned:int = 1
 
+var starting_planets = 3
+
 
 func _ready() -> void:
+	var existing_planets = len(game_director.get_planets())
+	if existing_planets:	
+	#	spawns planets stored in game_director
+		spawn_existing_planets()
+	else:
+		init_planet_set()
+	
+#	set previous player position and rotation
+	apply_player_postion()
+	
+#	start all the spawn timers
 	rockSpawnTimer.start(1)
 	coin_timer.start(5)
 	handle_health_spawns()
+
+#	setup planet collision detection
 	connect_planet_signals()
 	pass
 
 func _process(delta:float) -> void:
-	if can_enter_store == false:
-		exit_store()
-	
-#	player exit store
-	elif in_store and Input.is_action_just_pressed("interact"):
-		in_store = false
-		exit_store()
-	
 #	player enter store
-	elif can_enter_store and Input.is_action_just_pressed("interact") and not in_store:
+	if can_enter_store and Input.is_action_just_pressed("interact") and not in_store:
 		in_store = true
 		player_enter_store(docked_near)
+
+#---------------------Scene Init Setup Function------------------------
+
+#respawn player at last known position
+func apply_player_postion() -> void:
+	player.position = game_director.get_player_respawn_position()
+	player.rotation = game_director.get_player_respawn_rotation()
+
+#allows planets and locations to persist through scene switching
+func spawn_existing_planets() -> void:
+	var pr:Array = game_director.get_planets()
+	for p in pr:
+		planet_container.add_child(p)
+
+func init_planet_set() -> void:
+	for p in starting_planets:
+		var planet:Area2D = spawn_planet()
+		print(planet.position)
+		game_director.add_planet_to_map(planet)
 
 #----------------------Spawners and Location Generators----------------------------
 
@@ -84,9 +114,10 @@ func spawn_coin():
 	coin_timer.start(randi_range(2, 20))
 	pass
 
-func spawn_planet():
+func spawn_planet() -> Area2D:
 	var new_planet = planet_scene.instantiate()
 	new_planet.position = get_random_point_offscreen()
+	return new_planet
 	pass
 
 func handle_health_spawns():
@@ -134,16 +165,12 @@ func score(body) -> void:
 func set_can_enter_store(v:bool, planet: Area2D) -> void:
 	can_enter_store = v
 	docked_near = planet
+	game_director.set_current_planet(planet)
+	game_director.set_player_respawn_position(player.position, player.rotation)
 
 func player_enter_store(planet:Area2D) -> void:
 	if can_enter_store:
 		if Input.is_action_pressed("interact"):
-			var store = planet_store_scene.instantiate()
-			store.planet = planet
-			overlay.add_child(store)
+			game_director.switch_to_store()
 	pass
 	
-func exit_store() -> void:
-	var node = overlay.get_node("PlanetStore")
-	overlay.remove_child(node)
-	pass
